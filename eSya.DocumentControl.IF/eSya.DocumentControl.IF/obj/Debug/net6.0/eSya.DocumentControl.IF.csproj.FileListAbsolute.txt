@@ -1,0 +1,15 @@
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\bin\Debug\net6.0\eSya.DocumentControl.IF.deps.json
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\bin\Debug\net6.0\eSya.DocumentControl.IF.dll
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\bin\Debug\net6.0\eSya.DocumentControl.IF.pdb
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.AssemblyInfoInputs.cache
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.AssemblyInfo.cs
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.csproj.CoreCompileInputs.cache
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.dll
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\refint\eSya.DocumentControl.IF.dll
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.pdb
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\ref\eSya.DocumentControl.IF.dll
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\bin\Debug\net6.0\eSya.DocumentControl.DO.dll
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\bin\Debug\net6.0\eSya.DocumentControl.DO.pdb
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.csproj.AssemblyReference.cache
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.csproj.CopyComplete

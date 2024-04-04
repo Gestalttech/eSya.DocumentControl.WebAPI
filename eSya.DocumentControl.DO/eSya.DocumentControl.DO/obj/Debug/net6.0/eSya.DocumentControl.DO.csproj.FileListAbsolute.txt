@@ -1,0 +1,11 @@
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\bin\Debug\net6.0\eSya.DocumentControl.DO.deps.json
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\bin\Debug\net6.0\eSya.DocumentControl.DO.dll
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\bin\Debug\net6.0\eSya.DocumentControl.DO.pdb
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\obj\Debug\net6.0\eSya.DocumentControl.DO.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\obj\Debug\net6.0\eSya.DocumentControl.DO.AssemblyInfoInputs.cache
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\obj\Debug\net6.0\eSya.DocumentControl.DO.AssemblyInfo.cs
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\obj\Debug\net6.0\eSya.DocumentControl.DO.csproj.CoreCompileInputs.cache
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\obj\Debug\net6.0\eSya.DocumentControl.DO.dll
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\obj\Debug\net6.0\refint\eSya.DocumentControl.DO.dll
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\obj\Debug\net6.0\eSya.DocumentControl.DO.pdb
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DO\eSya.DocumentControl.DO\obj\Debug\net6.0\ref\eSya.DocumentControl.DO.dll
