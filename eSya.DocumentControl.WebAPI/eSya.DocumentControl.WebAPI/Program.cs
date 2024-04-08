@@ -49,6 +49,7 @@ builder.Services.AddLocalization();
 
 //localization
 builder.Services.AddScoped<IBusinessCalendarRepository, BusinessCalendarRepository>();
+builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 
 builder.Services.AddControllers();

@@ -17,3 +17,4 @@ D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DL
 D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DL\eSya.DocumentControl.DL\bin\Debug\net6.0\eSya.DocumentControl.DO.pdb
 D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DL\eSya.DocumentControl.DL\bin\Debug\net6.0\eSya.DocumentControl.IF.pdb
 D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DL\eSya.DocumentControl.DL\obj\Debug\net6.0\eSya.DocumentControl.DL.csproj.CopyComplete
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.DL\eSya.DocumentControl.DL\obj\Debug\net6.0\eSya.DocumentControl.DL.sourcelink.json

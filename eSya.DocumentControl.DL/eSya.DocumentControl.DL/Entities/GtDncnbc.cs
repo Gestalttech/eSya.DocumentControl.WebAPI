@@ -6,11 +6,14 @@ namespace eSya.DocumentControl.DL.Entities
     public partial class GtDncnbc
     {
         public int BusinessKey { get; set; }
-        public string CalenderKey { get; set; } = null!;
+        public string CalendarKey { get; set; } = null!;
+        public int ComboId { get; set; }
+        public int FormId { get; set; }
         public int DocumentId { get; set; }
-        public string GeneNoYearOrMonth { get; set; } = null!;
+        public string SchemaId { get; set; } = null!;
+        public bool UsageStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public bool ActiveStatus { get; set; }
-        public string FormId { get; set; } = null!;
         public int CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedTerminal { get; set; } = null!;

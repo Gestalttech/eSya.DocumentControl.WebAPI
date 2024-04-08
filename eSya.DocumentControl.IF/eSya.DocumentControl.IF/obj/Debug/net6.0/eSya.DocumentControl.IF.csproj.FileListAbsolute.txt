@@ -13,3 +13,4 @@ D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF
 D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\bin\Debug\net6.0\eSya.DocumentControl.DO.pdb
 D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.csproj.AssemblyReference.cache
 D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.csproj.CopyComplete
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.IF\eSya.DocumentControl.IF\obj\Debug\net6.0\eSya.DocumentControl.IF.sourcelink.json

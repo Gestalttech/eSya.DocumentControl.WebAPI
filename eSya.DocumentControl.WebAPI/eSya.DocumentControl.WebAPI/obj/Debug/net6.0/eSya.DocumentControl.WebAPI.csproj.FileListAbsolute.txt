@@ -277,3 +277,4 @@ D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.We
 D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.WebAPI\eSya.DocumentControl.WebAPI\bin\Debug\net6.0\eSya.DocumentControl.DL.pdb
 D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.WebAPI\eSya.DocumentControl.WebAPI\bin\Debug\net6.0\eSya.DocumentControl.DO.pdb
 D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.WebAPI\eSya.DocumentControl.WebAPI\bin\Debug\net6.0\eSya.DocumentControl.IF.pdb
+D:\Projects\eSyaProjects2022\eSya.DocumentControl.WebAPI\eSya.DocumentControl.WebAPI\eSya.DocumentControl.WebAPI\obj\Debug\net6.0\eSya.DocumentControl.WebAPI.sourcelink.json

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("eSya.DocumentControl.DO")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+449eb012378e6ba7b5202353d1a58b7c491f91c6")]
 [assembly: System.Reflection.AssemblyProductAttribute("eSya.DocumentControl.DO")]
 [assembly: System.Reflection.AssemblyTitleAttribute("eSya.DocumentControl.DO")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
