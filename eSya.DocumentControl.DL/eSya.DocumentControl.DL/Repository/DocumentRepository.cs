@@ -124,7 +124,7 @@ namespace eSya.DocumentControl.DL.Repository
                     var result = db.GtDccnsts.Select(
                         s => new DO_DocumentControlMaster
                         {
-                            FormId= formId.ToString(),
+                            FormId = formId.ToString(),
                             DocumentId = s.DocumentId,
                             GeneLogic = s.GeneLogic,
                             CalendarType = s.CalendarType,
@@ -137,7 +137,8 @@ namespace eSya.DocumentControl.DL.Repository
                             ShortDesc = s.ShortDesc,
                             DocumentType = s.DocumentType,
                             UsageStatus = s.UsageStatus,
-                            ActiveStatus = s.ActiveStatus
+                            //ActiveStatus = s.ActiveStatus
+                            ActiveStatus=false
                         }).ToListAsync();
 
                     return await result;
@@ -146,6 +147,80 @@ namespace eSya.DocumentControl.DL.Repository
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public async Task<DO_ReturnParameter> InsertOrUpdateBusinesswiseDocumentControl(List<DO_BusinessDocument_Link> obj)
+        {
+            using (eSyaEnterprise db = new eSyaEnterprise())
+            {
+
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach(var d in obj.Where(x=>x.ActiveStatus==false))
+                        {
+                            var lstdoc =await db.GtDncnbcs.Where(x => x.BusinessKey == d.BusinessKey && x.CalendarKey.ToUpper().Replace(" ", "") == d.CalendarKey.ToUpper().Replace(" ", "") && x.ComboId == d.ComboId
+                            && x.FormId == d.FormId && x.DocumentId == d.DocumentId && x.SchemaId.ToUpper().Replace(" ", "") == d.SchemaId.ToUpper().Replace(" ", "")).ToListAsync();
+                            foreach(var del in lstdoc)
+                            {
+                                db.GtDncnbcs.Remove(del);
+                                await db.SaveChangesAsync();
+                            }
+                        }
+
+                        foreach (var objadd in obj.Where(x => x.ActiveStatus == true))
+                        {
+                            var docctrl = db.GtDncnbcs.Where(x => x.BusinessKey == objadd.BusinessKey && x.CalendarKey.ToUpper().Replace(" ", "") == objadd.CalendarKey.ToUpper().Replace(" ", "") && x.ComboId == objadd.ComboId).FirstOrDefault();
+
+                            if (docctrl != null)
+                            {
+                                docctrl.FormId = objadd.FormId;
+                                docctrl.DocumentId = objadd.DocumentId;
+                                docctrl.SchemaId = objadd.SchemaId;
+                                //docctrl.UsageStatus = false;
+                                docctrl.FreezeStatus = objadd.FreezeStatus;
+                                docctrl.ActiveStatus = objadd.ActiveStatus;
+                                docctrl.ModifiedBy = objadd.UserID;
+                                docctrl.ModifiedOn = System.DateTime.Now;
+                                docctrl.ModifiedTerminal = objadd.TerminalID;
+                                await db.SaveChangesAsync();
+                             
+                            }
+                            else
+                            {
+                                GtDncnbc doc = new GtDncnbc()
+                                {
+                                    BusinessKey = objadd.BusinessKey,
+                                    CalendarKey = objadd.CalendarKey,
+                                    ComboId = objadd.ComboId,
+                                    FormId = objadd.FormId,
+                                    DocumentId = objadd.DocumentId,
+                                    SchemaId = objadd.SchemaId,
+                                    UsageStatus = false,
+                                    FreezeStatus = objadd.FreezeStatus,
+                                    ActiveStatus = objadd.ActiveStatus,
+                                    CreatedBy = objadd.UserID,
+                                    CreatedOn = System.DateTime.Now,
+                                    CreatedTerminal = objadd.TerminalID
+                                };
+                                db.GtDncnbcs.Add(doc);
+                                await db.SaveChangesAsync();
+                            }
+                        }
+                        dbContext.Commit();
+                        return new DO_ReturnParameter() { Status = true, StatusCode = "S0001", Message = string.Format(_localizer[name: "S0001"]) };
+
+                    }
+
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        throw ex;
+                    }
+                }
+
             }
         }
         #endregion

@@ -1,4 +1,5 @@
-﻿using eSya.DocumentControl.DO;
+﻿using eSya.DocumentControl.DL.Repository;
+using eSya.DocumentControl.DO;
 using eSya.DocumentControl.IF;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,13 @@ namespace eSya.DocumentControl.WebAPI.Controllers
         {
             var ds = await _documentRepository.GetDocumentControlMaster(formId);
             return Ok(ds);
+        }
+        [HttpPost]
+        public async Task<IActionResult> InsertOrUpdateBusinesswiseDocumentControl(List<DO_BusinessDocument_Link> obj)
+        {
+            var msg = await _documentRepository.InsertOrUpdateBusinesswiseDocumentControl(obj);
+            return Ok(msg);
+
         }
         #endregion
     }

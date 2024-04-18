@@ -17,6 +17,8 @@ namespace eSya.DocumentControl.DO
         public bool UsageStatus { get; set; }
         public bool FreezeStatus { get; set; }
         public bool ActiveStatus { get; set; }
+        public int UserID { get; set; }
+        public string TerminalID { get; set; }
         public string? FormName { get; set; }
         public string? DocumentName { get; set; }
     }

@@ -14,7 +14,7 @@ namespace eSya.DocumentControl.IF
         Task<List<DO_BusinessLocation>> GetBusinessLocationbyCalendarkeys(string calendarkey);
         Task<List<DO_BusinessDocument_Link>> GetDocumentFormlinkwithLocation(string calendarkey, int businesskey);
         Task<List<DO_DocumentControlMaster>> GetDocumentControlMaster(int formId);
-
+        Task<DO_ReturnParameter> InsertOrUpdateBusinesswiseDocumentControl(List<DO_BusinessDocument_Link>obj);
         #endregion
     }
 }
