@@ -31,12 +31,15 @@ namespace eSya.DocumentControl.DL.Entities
         public virtual DbSet<GtDncn10> GtDncn10s { get; set; } = null!;
         public virtual DbSet<GtDncn11> GtDncn11s { get; set; } = null!;
         public virtual DbSet<GtDncnbc> GtDncnbcs { get; set; } = null!;
+        public virtual DbSet<GtDncnm> GtDncnms { get; set; } = null!;
         public virtual DbSet<GtEbetrm> GtEbetrms { get; set; } = null!;
         public virtual DbSet<GtEcblcl> GtEcblcls { get; set; } = null!;
         public virtual DbSet<GtEcbsln> GtEcbslns { get; set; } = null!;
+        public virtual DbSet<GtEcbsmn> GtEcbsmns { get; set; } = null!;
         public virtual DbSet<GtEcclco> GtEcclcos { get; set; } = null!;
         public virtual DbSet<GtEcfmfd> GtEcfmfds { get; set; } = null!;
         public virtual DbSet<GtEcfmpa> GtEcfmpas { get; set; } = null!;
+        public virtual DbSet<GtEcmnfl> GtEcmnfls { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -51,29 +54,21 @@ namespace eSya.DocumentControl.DL.Entities
         {
             modelBuilder.Entity<GtDccnst>(entity =>
             {
-                entity.HasKey(e => e.DocumentId);
+                entity.HasKey(e => new { e.DocumentId, e.ComboId })
+                    .HasName("PK_GT_DCCNST_1");
 
                 entity.ToTable("GT_DCCNST");
 
-                entity.Property(e => e.DocumentId).ValueGeneratedNever();
+                entity.Property(e => e.ComboId).HasColumnName("ComboID");
 
                 entity.Property(e => e.CalendarType)
                     .HasMaxLength(2)
                     .IsUnicode(false)
                     .IsFixedLength();
 
-                entity.Property(e => e.ComboId).HasColumnName("ComboID");
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.CreatedTerminal).HasMaxLength(50);
-
-                entity.Property(e => e.DocumentDesc).HasMaxLength(50);
-
-                entity.Property(e => e.DocumentType)
-                    .HasMaxLength(1)
-                    .IsUnicode(false)
-                    .IsFixedLength();
 
                 entity.Property(e => e.FormId)
                     .HasMaxLength(10)
@@ -93,10 +88,6 @@ namespace eSya.DocumentControl.DL.Entities
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("SchemaID");
-
-                entity.Property(e => e.ShortDesc)
-                    .HasMaxLength(4)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<GtDncn01>(entity =>
@@ -475,6 +466,37 @@ namespace eSya.DocumentControl.DL.Entities
                     .HasColumnName("SchemaID");
             });
 
+            modelBuilder.Entity<GtDncnm>(entity =>
+            {
+                entity.HasKey(e => e.DocumentId);
+
+                entity.ToTable("GT_DNCNMS");
+
+                entity.Property(e => e.DocumentId).ValueGeneratedNever();
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedTerminal).HasMaxLength(50);
+
+                entity.Property(e => e.DocumentDesc).HasMaxLength(50);
+
+                entity.Property(e => e.DocumentType)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
+                entity.Property(e => e.FormId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("FormID");
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedTerminal).HasMaxLength(50);
+
+                entity.Property(e => e.ShortDesc).HasMaxLength(4);
+            });
+
             modelBuilder.Entity<GtEbetrm>(entity =>
             {
                 entity.HasNoKey();
@@ -571,6 +593,21 @@ namespace eSya.DocumentControl.DL.Entities
                 entity.Property(e => e.TorealCurrency).HasColumnName("TORealCurrency");
             });
 
+            modelBuilder.Entity<GtEcbsmn>(entity =>
+            {
+                entity.HasKey(e => new { e.BusinessKey, e.MenuKey });
+
+                entity.ToTable("GT_ECBSMN");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedTerminal).HasMaxLength(50);
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedTerminal).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<GtEcclco>(entity =>
             {
                 entity.HasKey(e => new { e.CalenderType, e.Year, e.StartMonth });
@@ -658,6 +695,35 @@ namespace eSya.DocumentControl.DL.Entities
                     .HasForeignKey(d => d.FormId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_GT_ECFMPA_GT_ECFMFD");
+            });
+
+            modelBuilder.Entity<GtEcmnfl>(entity =>
+            {
+                entity.HasKey(e => new { e.FormId, e.MainMenuId, e.MenuItemId });
+
+                entity.ToTable("GT_ECMNFL");
+
+                entity.Property(e => e.FormId).HasColumnName("FormID");
+
+                entity.Property(e => e.MainMenuId).HasColumnName("MainMenuID");
+
+                entity.Property(e => e.MenuItemId).HasColumnName("MenuItemID");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedTerminal).HasMaxLength(50);
+
+                entity.Property(e => e.FormNameClient).HasMaxLength(50);
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedTerminal).HasMaxLength(50);
+
+                entity.HasOne(d => d.Form)
+                    .WithMany(p => p.GtEcmnfls)
+                    .HasForeignKey(d => d.FormId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GT_ECMNFL_GT_ECFMFD");
             });
 
             OnModelCreatingPartial(modelBuilder);

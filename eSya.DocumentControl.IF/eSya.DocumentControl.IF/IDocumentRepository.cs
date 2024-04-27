@@ -9,12 +9,13 @@ namespace eSya.DocumentControl.IF
 {
     public interface IDocumentRepository
     {
-        #region Define Business - Document Link
-        Task<List<DO_BusinessCalendarLink>> GetBusinesslinkedCalendarkeys();
-        Task<List<DO_BusinessLocation>> GetBusinessLocationbyCalendarkeys(string calendarkey);
-        Task<List<DO_BusinessDocument_Link>> GetDocumentFormlinkwithLocation(string calendarkey, int businesskey);
-        Task<List<DO_DocumentControlMaster>> GetDocumentControlMaster(int formId);
-        Task<DO_ReturnParameter> InsertOrUpdateBusinesswiseDocumentControl(List<DO_BusinessDocument_Link>obj);
+        
+
+        #region Define Business - Document Link -New
+        Task<List<DO_FormBusinessLink>> GetMenuFormslinkwithLocation(int businesskey);
+        Task<List<DO_DocumentControlStandard>> GetDocumentControlStandard(int formId, int businesskey);
+        Task<DO_ReturnParameter> InsertOrUpdateBusinesswiseDocumentControlLink(List<DO_BusinessDocument_Link> obj);
+
         #endregion
     }
 }

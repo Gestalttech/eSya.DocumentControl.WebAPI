@@ -1,11 +1,13 @@
 ﻿using eSya.DocumentControl.DL.Entities;
 using eSya.DocumentControl.DO;
 using eSya.DocumentControl.IF;
+using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,92 +20,39 @@ namespace eSya.DocumentControl.DL.Repository
         {
             _localizer = localizer;
         }
-        #region Define Business - Document Link
-        public async Task<List<DO_BusinessCalendarLink>> GetBusinesslinkedCalendarkeys()
-        {
-            try
-            {
-                using (eSyaEnterprise db = new eSyaEnterprise())
-                {
+        
 
-                    var result = await db.GtEcblcls.Where(x => x.ActiveStatus)
-                        .Select(x => new DO_BusinessCalendarLink
-                        {
-                            CalenderKey = x.CalenderKey
-                        }).ToListAsync();
-                    var Distinctcals = result.GroupBy(x => x.CalenderKey).Select(y => y.First());
-                    return Distinctcals.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public async Task<List<DO_BusinessLocation>> GetBusinessLocationbyCalendarkeys(string calendarkey)
-        {
-            try
-            {
-                using (eSyaEnterprise db = new eSyaEnterprise())
-                {
-
-                    var locs =await db.GtEcblcls.Where(x => x.CalenderKey == calendarkey && x.ActiveStatus)
-                         .Join(db.GtEcbslns,
-                          x => x.BusinessKey,
-                          y => y.BusinessKey,
-                         (x, y) => new DO_BusinessLocation
-                         {
-                             BusinessKey = x.BusinessKey,
-                             LocationDescription = y.BusinessName + "-" + y.LocationDescription
-
-                         }).ToListAsync();
-
-                    var Distinctcals = locs.GroupBy(x => x.BusinessKey).Select(y => y.First());
-                    return Distinctcals.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public async Task<List<DO_BusinessDocument_Link>> GetDocumentFormlinkwithLocation(string calendarkey,int businesskey)
+        #region Define Business - Document Link -New
+        public async Task<List<DO_FormBusinessLink>> GetMenuFormslinkwithLocation(int businesskey)
         {
             try
             {
                 using (var db = new eSyaEnterprise())
                 {
 
-                    var ds = await db.GtEcfmfds.Where(x => x.ActiveStatus == true)
-                        .Join(db.GtEcfmpas.Where(x => x.ParameterId == 2),
-                        f => f.FormId,
-                        p => p.FormId,
+                    var ds = await db.GtEcbsmns.Where(x => x.BusinessKey == businesskey && x.ActiveStatus == true)
+                        .Join(db.GtEcmnfls.Where(x => x.ActiveStatus),
+                        f => f.MenuKey,
+                        p => p.MenuKey,
                         (f, p) => new { f, p })
-                         .Join(db.GtEcfmpas.Where(x => x.ParameterId == 1),
-                        fd => fd.f.FormId,
+                         .Join(db.GtEcfmfds.Where(x => x.ActiveStatus),
+                        fd => fd.p.FormId,
                         fp => fp.FormId,
                         (fd, fp) => new { fd, fp })
-                   .GroupJoin(db.GtDncnbcs.Where(w => w.CalendarKey == calendarkey && w.BusinessKey==businesskey),
-                     df =>df.fd.f.FormId,
-                     l => l.FormId,
-                    (form, doc) => new { form, doc })
-                   .SelectMany(z => z.doc.DefaultIfEmpty(),
-                    (a, b) => new DO_BusinessDocument_Link
-                    {
-                        FormId = a.form.fd.f.FormId,
-                        FormName = a.form.fd.f.FormName,
-                        BusinessKey = b == null ? businesskey : b.BusinessKey,
-                        CalendarKey = b == null ? calendarkey : b.CalendarKey,
-                        ComboId = b == null ? 0 : b.ComboId,
-                        DocumentId = b == null ? 0 : b.DocumentId,
-                        SchemaId=b == null ? "": b.SchemaId,
-                        UsageStatus = b == null ? false : b.UsageStatus,
-                        FreezeStatus = b == null ? false : b.FreezeStatus,
-                        ActiveStatus = b == null ? false : b.ActiveStatus,
+                        .Join(db.GtEcfmpas.Where(x => x.ParameterId == 2),
+                        fpp => fpp.fp.FormId,
+                        pm => pm.FormId,
+                        (fpp, pm) => new { fpp, pm })
                         
-                    }).ToListAsync();
+                        .Select( r=> new DO_FormBusinessLink
+                        {
+                            BusinessKey = businesskey,
+                            FormId = r.fpp.fp.FormId,
+                            FormCode = r.fpp.fp.FormCode == null ? "" : r.fpp.fp.FormCode,
+                            FormName = r.fpp.fp.FormName,
+                            ActiveStatus = r.fpp.fp.ActiveStatus,
+
+                         }).ToListAsync();
 
                     var Distinctform = ds.GroupBy(x => x.FormId).Select(y => y.First());
                     return Distinctform.ToList();
@@ -115,31 +64,43 @@ namespace eSya.DocumentControl.DL.Repository
                 throw ex;
             }
         }
-        public async Task<List<DO_DocumentControlMaster>> GetDocumentControlMaster(int formId)
+
+        public async Task<List<DO_DocumentControlStandard>> GetDocumentControlStandard(int formId, int businesskey)
         {
             try
             {
                 using (var db = new eSyaEnterprise())
                 {
-                    var result = db.GtDccnsts.Select(
-                        s => new DO_DocumentControlMaster
-                        {
-                            FormId = formId.ToString(),
-                            DocumentId = s.DocumentId,
-                            GeneLogic = s.GeneLogic,
-                            CalendarType = s.CalendarType,
-                            IsTransationMode = s.IsTransationMode,
-                            IsStoreCode = s.IsStoreCode,
-                            IsPaymentMode = s.IsPaymentMode,
-                            SchemaId = s.SchemaId,
-                            ComboId = s.ComboId,
-                            DocumentDesc = s.DocumentDesc,
-                            ShortDesc = s.ShortDesc,
-                            DocumentType = s.DocumentType,
-                            UsageStatus = s.UsageStatus,
-                            //ActiveStatus = s.ActiveStatus
-                            ActiveStatus=false
-                        }).ToListAsync();
+
+                    var result = db.GtDccnsts.Where(x => x.ActiveStatus)
+                        .Join(db.GtDncnms.Where(x=>x.ActiveStatus),
+                         ds => ds.DocumentId,
+                         dm => dm.DocumentId,
+                        (ds, dm) => new { ds, dm })
+                       .GroupJoin(db.GtDncnbcs.Where(w =>w.BusinessKey == businesskey),
+                        df =>df.ds.ComboId,
+                        d => d.ComboId,
+                        (df, d) => new { df, d })
+                       .SelectMany(z => z.d.DefaultIfEmpty(),
+                       (a, b) => new DO_DocumentControlStandard
+                      {
+                          FormId = formId,
+                          BusinessKey = businesskey,
+                          DocumentId = a.df.ds.DocumentId,
+                          ComboId = a.df.ds.ComboId,
+                          GeneLogic = a.df.ds.GeneLogic,
+                          CalendarType = a.df.ds.CalendarType,
+                          IsTransationMode = a.df.ds.IsTransationMode,
+                          IsStoreCode = a.df.ds.IsStoreCode,
+                          IsPaymentMode = a.df.ds.IsPaymentMode,
+                          SchemaId = a.df.ds.SchemaId,
+                          DocumentDesc = a.df.dm.DocumentDesc,
+                          ShortDesc = a.df.dm.ShortDesc,
+                          DocumentType = a.df.dm.DocumentType,
+                          UsageStatus = b == null ? false : b.ActiveStatus,
+                          ActiveStatus = b == null ? false : b.ActiveStatus,
+                       
+                    }).ToListAsync();
 
                     return await result;
                 }
@@ -150,7 +111,8 @@ namespace eSya.DocumentControl.DL.Repository
             }
         }
 
-        public async Task<DO_ReturnParameter> InsertOrUpdateBusinesswiseDocumentControl(List<DO_BusinessDocument_Link> obj)
+
+        public async Task<DO_ReturnParameter> InsertOrUpdateBusinesswiseDocumentControlLink(List<DO_BusinessDocument_Link> obj)
         {
             using (eSyaEnterprise db = new eSyaEnterprise())
             {
@@ -159,18 +121,22 @@ namespace eSya.DocumentControl.DL.Repository
                 {
                     try
                     {
-                        foreach(var d in obj.Where(x=>x.ActiveStatus==false))
+
+                        foreach (var d in obj)
                         {
-                            var lstdoc =await db.GtDncnbcs.Where(x => x.BusinessKey == d.BusinessKey && x.CalendarKey.ToUpper().Replace(" ", "") == d.CalendarKey.ToUpper().Replace(" ", "") && x.ComboId == d.ComboId
-                            && x.FormId == d.FormId && x.DocumentId == d.DocumentId && x.SchemaId.ToUpper().Replace(" ", "") == d.SchemaId.ToUpper().Replace(" ", "")).ToListAsync();
-                            foreach(var del in lstdoc)
+                            var calkey = db.GtEcblcls.Where(x => x.BusinessKey == d.BusinessKey && x.ActiveStatus && x.CalenderKey.ToUpper().Replace(" ", "").StartsWith(d.CalendarType.ToUpper().Replace(" ", ""))).FirstOrDefault();
+                            if (calkey == null)
                             {
-                                db.GtDncnbcs.Remove(del);
-                                await db.SaveChangesAsync();
+                                return new DO_ReturnParameter() { Status = false, StatusCode = "W0115", Message = string.Format(_localizer[name: "W0115"]) };
+
+                            }
+                            else
+                            {
+                                d.CalendarKey = calkey.CalenderKey;
                             }
                         }
 
-                        foreach (var objadd in obj.Where(x => x.ActiveStatus == true))
+                        foreach (var objadd in obj)
                         {
                             var docctrl = db.GtDncnbcs.Where(x => x.BusinessKey == objadd.BusinessKey && x.CalendarKey.ToUpper().Replace(" ", "") == objadd.CalendarKey.ToUpper().Replace(" ", "") && x.ComboId == objadd.ComboId).FirstOrDefault();
 
@@ -179,14 +145,14 @@ namespace eSya.DocumentControl.DL.Repository
                                 docctrl.FormId = objadd.FormId;
                                 docctrl.DocumentId = objadd.DocumentId;
                                 docctrl.SchemaId = objadd.SchemaId;
-                                //docctrl.UsageStatus = false;
+                                docctrl.UsageStatus = objadd.ActiveStatus;
                                 docctrl.FreezeStatus = objadd.FreezeStatus;
                                 docctrl.ActiveStatus = objadd.ActiveStatus;
                                 docctrl.ModifiedBy = objadd.UserID;
                                 docctrl.ModifiedOn = System.DateTime.Now;
                                 docctrl.ModifiedTerminal = objadd.TerminalID;
                                 await db.SaveChangesAsync();
-                             
+
                             }
                             else
                             {
@@ -198,7 +164,7 @@ namespace eSya.DocumentControl.DL.Repository
                                     FormId = objadd.FormId,
                                     DocumentId = objadd.DocumentId,
                                     SchemaId = objadd.SchemaId,
-                                    UsageStatus = false,
+                                    UsageStatus = objadd.ActiveStatus,
                                     FreezeStatus = objadd.FreezeStatus,
                                     ActiveStatus = objadd.ActiveStatus,
                                     CreatedBy = objadd.UserID,
@@ -223,6 +189,7 @@ namespace eSya.DocumentControl.DL.Repository
 
             }
         }
+        
         #endregion
     }
 }

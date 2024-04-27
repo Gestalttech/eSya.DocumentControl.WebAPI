@@ -15,38 +15,30 @@ namespace eSya.DocumentControl.WebAPI.Controllers
         {
             _documentRepository = documentRepository;
         }
-        #region Define Business - Document Link
+        
+
+        #region Define Business - Document Link -New
         [HttpGet]
-        public async Task<IActionResult> GetBusinesslinkedCalendarkeys()
+        public async Task<IActionResult> GetMenuFormslinkwithLocation(int businesskey)
         {
-            var ds = await _documentRepository.GetBusinesslinkedCalendarkeys();
+            var ds = await _documentRepository.GetMenuFormslinkwithLocation(businesskey);
             return Ok(ds);
         }
         [HttpGet]
-        public async Task<IActionResult> GetBusinessLocationbyCalendarkeys(string calendarkey)
+        public async Task<IActionResult> GetDocumentControlStandard(int formId, int businesskey)
         {
-            var ds = await _documentRepository.GetBusinessLocationbyCalendarkeys(calendarkey);
-            return Ok(ds);
-        }
-        [HttpGet]
-        public async Task<IActionResult> GetDocumentFormlinkwithLocation(string calendarkey, int businesskey)
-        {
-            var ds = await _documentRepository.GetDocumentFormlinkwithLocation(calendarkey, businesskey);
-            return Ok(ds);
-        }
-        [HttpGet]
-        public async Task<IActionResult> GetDocumentControlMaster(int formId)
-        {
-            var ds = await _documentRepository.GetDocumentControlMaster(formId);
+            var ds = await _documentRepository.GetDocumentControlStandard(formId, businesskey);
             return Ok(ds);
         }
         [HttpPost]
-        public async Task<IActionResult> InsertOrUpdateBusinesswiseDocumentControl(List<DO_BusinessDocument_Link> obj)
+        public async Task<IActionResult> InsertOrUpdateBusinesswiseDocumentControlLink(List<DO_BusinessDocument_Link> obj)
         {
-            var msg = await _documentRepository.InsertOrUpdateBusinesswiseDocumentControl(obj);
+            var msg = await _documentRepository.InsertOrUpdateBusinesswiseDocumentControlLink(obj);
             return Ok(msg);
 
         }
+
+        
         #endregion
     }
 }
